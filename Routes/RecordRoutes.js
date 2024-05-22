@@ -8,13 +8,13 @@ const modifyRecordController = require("../Controller/RecordController/ModifyRec
 router.get("/",(req,res)=>{
     getRecordController(req,res);
 });
-router.post("/create",(req,res)=>{
+router.post("/",(req,res)=>{
     createRecordController(req,res);
 });
-router.delete("/delete",(req,res)=>{
+router.delete("/",(req,res)=>{
     deleteRecordController(req,res);
 });
-router.patch("/modify",(req,res)=>{
+router.patch("/",(req,res)=>{
     modifyRecordController(req,res);
 })
 module.exports = router;
