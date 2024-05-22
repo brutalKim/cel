@@ -1,9 +1,13 @@
-const jwt = require("jsonwebtoken");
-const jwtConfig = require("../../jwt/jwtConfig.json");
+const verifyToken = require("../../jwt/verifyToken");
+const createRecordService = require("../../Service/RecordService/CreateRecordService");
 
 const CreateRecordController = async(req,res)=>{
     const authorization = req.headers.authorization;
-    const decodedUserId = jwt.verify(authorization,jwtConfig.sercretKey).id;
-    
+    const data = req.body;
+    const decodedAuthoriztion = await verifyToken(authorization);
+    if(decodedAuthoriztion.valid){
+        return res.status(await createRecordService(decodedAuthoriztion.payload.id,data)).send();
+    }
+    return res.status(decodedAuthoriztion.payload).send();
 }
-exports.module = CreateRecordController;
+module.exports = CreateRecordController;
